@@ -7,7 +7,12 @@ require 'sinatra/reloader'
 get '/' do
   guess = params['guess']
   check_guess(guess.to_i) if guess
-  data = {:message => @msg, :bg_color => @color, :num_guesses => @@guesses}
+  cheat_msg = "The secret number is #{@@SECRET_NUM}. You're welcome."
+  cheater = cheat_msg if params['cheat'] == 'true'
+  data = {:message => @msg,
+          :bg_color => @color,
+          :num_guesses => @@guesses,
+          :cheat_msg => cheater}
   erb :index, :locals => data
 end
 
